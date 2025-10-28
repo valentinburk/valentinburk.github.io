@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Effect on Depression Rate (2019-2022)</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="container">
+    <h1 id="yearTitle">Disease Effect on Depression Rate in <span id="currentYear">2019</span></h1>
+    <div id="description">
+      <p>
+        This visualization shows the effect various diseases have on depression rates in the United States from 2019 to 2022. Each circle represents a disease, with its position indicating the disease's prevalence (x-axis) which shows the effect on depression rate for the selected year.
+      </p>
+      <ul>
+        <li>Use the "Previous Year" and "Next Year" buttons to navigate between years.</li>
+        <li>Click on any disease circle to see a detailed breakdown of factors contributing to that disease.</li>
+      </ul>
+      <p> This tool allows you to explore how big the effect different health conditions have on the depression rates, how this effect is compared to other diseases effects and how it have changed over time.</p>
+    </div>
+    <div id="controls">
+      <button id="prevBtn">Previous Year</button>
+      <button id="nextBtn">Next Year</button>
+    </div>
+    <div id="scatterplot"></div>
+    <div id="barchart"></div>
+    <div id="data-source">
+      Data source: <a href="https://catalog.data.gov/dataset/u-s-chronic-disease-indicators" target="_blank">U.S. Chronic Disease Indicators</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

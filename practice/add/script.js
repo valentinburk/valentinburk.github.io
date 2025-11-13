@@ -1,24 +1,68 @@
+// Configuration
+const CONFIG = {
+    TOTAL_EQUATIONS: 20,
+    MAX_NUMBER: 20,
+    MAX_SUM: 20,
+    MIN_NUMBER_FOR_CHALLENGING: 3,
+    MIN_SUM_FOR_CHALLENGING: 10,
+    CHALLENGING_PERCENTAGE: 0.9
+};
+
+/**
+ * Checks if an equation is considered challenging
+ * @param {number} num1 - First number
+ * @param {number} num2 - Second number
+ * @param {number} sum - Sum of the two numbers
+ * @returns {boolean} True if equation is challenging
+ */
+function isChallengingEquation(num1, num2, sum) {
+    return sum > CONFIG.MIN_SUM_FOR_CHALLENGING && 
+           num1 >= CONFIG.MIN_NUMBER_FOR_CHALLENGING && 
+           num2 >= CONFIG.MIN_NUMBER_FOR_CHALLENGING;
+}
+
+/**
+ * Shuffles an array in place using Fisher-Yates algorithm
+ * @param {Array} array - Array to shuffle
+ * @returns {Array} The shuffled array
+ */
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/**
+ * Generates a set of unique addition equations
+ * @returns {Array<{num1: number, num2: number, sum: number}>} Array of equation objects
+ */
 function generateEquations() {
     const equations = [];
     const used = new Set();
     
-    // Generate 16 equations with sum > 10 (80% of 20)
-    let countOver10 = 0;
-    let countUnder10 = 0;
+    const targetChallenging = Math.floor(CONFIG.TOTAL_EQUATIONS * CONFIG.CHALLENGING_PERCENTAGE);
+    const targetSimple = CONFIG.TOTAL_EQUATIONS - targetChallenging;
     
-    while (equations.length < 20) {
-        let num1 = Math.floor(Math.random() * 20) + 1;
-        let num2 = Math.floor(Math.random() * 20) + 1;
-        let sum = num1 + num2;
+    let countChallenging = 0;
+    let countSimple = 0;
+    
+    while (equations.length < CONFIG.TOTAL_EQUATIONS) {
+        const num1 = Math.floor(Math.random() * CONFIG.MAX_NUMBER) + 1;
+        const num2 = Math.floor(Math.random() * CONFIG.MAX_NUMBER) + 1;
+        const sum = num1 + num2;
         
-        // Ensure sum <= 20
-        if (sum > 20) continue;
+        // Ensure sum doesn't exceed maximum
+        if (sum > CONFIG.MAX_SUM) continue;
         
-        // Control distribution: 80% should be > 10
-        if (sum > 10 && countOver10 >= 16) continue;
-        if (sum <= 10 && countUnder10 >= 4) continue;
+        const isChallenging = isChallengingEquation(num1, num2, sum);
         
-        // Create unique key to avoid duplicates
+        // Control distribution based on target percentages
+        if (isChallenging && countChallenging >= targetChallenging) continue;
+        if (!isChallenging && countSimple >= targetSimple) continue;
+        
+        // Create unique key to avoid duplicates (including reversed versions)
         const key = `${num1}+${num2}`;
         const reverseKey = `${num2}+${num1}`;
         
@@ -26,20 +70,20 @@ function generateEquations() {
             equations.push({ num1, num2, sum });
             used.add(key);
             
-            if (sum > 10) countOver10++;
-            else countUnder10++;
+            if (isChallenging) {
+                countChallenging++;
+            } else {
+                countSimple++;
+            }
         }
     }
     
-    // Shuffle equations
-    for (let i = equations.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [equations[i], equations[j]] = [equations[j], equations[i]];
-    }
-    
-    return equations;
+    return shuffleArray(equations);
 }
 
+/**
+ * Displays equations in a two-column layout
+ */
 function displayEquations() {
     const container = document.getElementById('equationsContainer');
     const equations = generateEquations();
@@ -58,7 +102,8 @@ function displayEquations() {
             <span>${eq.num1} + ${eq.num2} = <span class="answer-line"></span></span>
         `;
         
-        if (index < 10) {
+        // Distribute equations evenly between columns
+        if (index < CONFIG.TOTAL_EQUATIONS / 2) {
             column1.appendChild(div);
         } else {
             column2.appendChild(div);

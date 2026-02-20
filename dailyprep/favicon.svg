@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <!-- Dark mode variant: brighter purple so it reads on dark browser chrome -->
+    <style>
+      @media (prefers-color-scheme: dark) {
+        #grad-start { stop-color: #A78BFA; }
+        #grad-end   { stop-color: #818CF8; }
+      }
+    </style>
+    <linearGradient id="g-dark" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop id="grad-start" offset="0%"   stop-color="#7C3AED"/>
+      <stop id="grad-end"   offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="9" fill="url(#g-dark)"/>
+  <!-- "D" letterform matching the logo -->
+  <path d="M11 12h8.5c4.7 0 8 3.1 8 8s-3.3 8-8 8H11V12zm3.2 2.8v10.4h5.1c2.9 0 4.9-1.9 4.9-5.2s-2-5.2-4.9-5.2h-5.1z" fill="white"/>
+</svg>

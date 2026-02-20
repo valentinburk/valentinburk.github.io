@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DailyPrep — Interview Prep for Developers</title>
+  <meta name="description" content="DailyPrep helps software engineers prepare for tech interviews with bite-sized daily practice. Three tasks every day, tailored to your stack.">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <meta name="theme-color" content="#7C3AED">
+  <link rel="canonical" href="https://burk.in/dailyprep/">
+  <link rel="alternate" hreflang="en" href="https://burk.in/dailyprep/en/index.html">
+  <link rel="alternate" hreflang="ru" href="https://burk.in/dailyprep/ru/index.html">
+  <link rel="alternate" hreflang="x-default" href="https://burk.in/dailyprep/">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('dp-lang');
+      if (saved === 'ru') { window.location.replace('./ru/index.html'); return; }
+      if (saved === 'en') { window.location.replace('./en/index.html'); return; }
+      var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+      window.location.replace(lang.startsWith('ru') ? './ru/index.html' : './en/index.html');
+    }());
+  </script>
+  <noscript><meta http-equiv="refresh" content="0;url=./en/index.html"></noscript>
+</head>
+<body>
+  <p style="font-family:sans-serif;padding:32px">
+    Redirecting… <a href="./en/index.html">Click here</a> if you are not redirected automatically.
+  </p>
+</body>
+</html>

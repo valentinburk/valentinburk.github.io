@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://burk.in/dailyprep/sitemap.xml
